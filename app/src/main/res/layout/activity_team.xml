@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E3A2A2"
+    tools:context=".team">
+
+    <TextView
+        android:id="@+id/teamname"
+        android:layout_width="231dp"
+        android:layout_height="40dp"
+        android:text="Team Name"
+        android:textAlignment="center"
+        android:textColor="#090000"
+        android:textSize="20sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.04" />
+
+    <TextView
+        android:id="@+id/teamate"
+        android:layout_width="226dp"
+        android:layout_height="44dp"
+        android:text="Team_Mate"
+        android:textAlignment="center"
+        android:textColor="#0B0101"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.417" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="324dp"
+        android:layout_height="95dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.459"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.119"
+        app:srcCompat="@drawable/img_1" />
+
+    <TextView
+        android:id="@+id/sakib"
+        android:layout_width="203dp"
+        android:layout_height="57dp"
+        android:text="Md.Sakib Ur Rahman"
+        android:textColor="#0B0000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.192"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.593" />
+
+    <TextView
+        android:id="@+id/ferdous"
+        android:layout_width="203dp"
+        android:layout_height="57dp"
+        android:text="Md.Ferdous Mondol"
+        android:textColor="#0B0000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.192"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.721" />
+
+    <TextView
+        android:id="@+id/sourove"
+        android:layout_width="203dp"
+        android:layout_height="57dp"
+        android:text="Sourove Hossen"
+        android:textColor="#0B0000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.192"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ferdous"
+        app:layout_constraintVertical_bias="0.175" />
+
+    <TextView
+        android:id="@+id/friend"
+        android:layout_width="310dp"
+        android:layout_height="48dp"
+        android:text="Project_title: Friendship"
+        android:textAlignment="center"
+        android:textColor="#070000"
+        android:textSize="20sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.534"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.275" />
+
+    <TextView
+        android:id="@+id/click1"
+        android:layout_width="110dp"
+        android:layout_height="57dp"
+        android:text="Click here"
+        android:textAlignment="center"
+        android:textColor="#137FD1"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/sakib"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.593" />
+
+    <TextView
+        android:id="@+id/click2"
+        android:layout_width="110dp"
+        android:layout_height="57dp"
+        android:text="Click here"
+        android:textAlignment="center"
+        android:textColor="#137FD1"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ferdous"
+        app:layout_constraintTop_toBottomOf="@+id/click1"
+        app:layout_constraintVertical_bias="0.133" />
+
+    <TextView
+        android:id="@+id/click3"
+        android:layout_width="110dp"
+        android:layout_height="57dp"
+        android:text="Click here"
+        android:textAlignment="center"
+        android:textColor="#137fd1"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/sourove"
+        app:layout_constraintTop_toBottomOf="@+id/click2"
+        app:layout_constraintVertical_bias="0.175" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

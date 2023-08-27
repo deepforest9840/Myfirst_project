@@ -9,7 +9,7 @@ public class chat_activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.chat);
+        setContentView(R.layout.chat_activity);
         setTitle("inshaallah chat version will be implemented here");
     }
 }

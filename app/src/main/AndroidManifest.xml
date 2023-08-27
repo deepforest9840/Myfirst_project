@@ -37,7 +37,30 @@
             android:name=".loginpage"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Reset"
+            android:exported="false" />
+        <activity
+            android:name=".sourove"
+            android:exported="false" />
+        <activity
+            android:name=".ferdous"
+            android:exported="false" />
+        <activity
+            android:name=".sakib"
+            android:exported="false" />
+        <activity
+            android:name=".team"
+            android:exported="false" />
+        <activity
+            android:name=".upload"
+            android:exported="false" />
+
+        <activity
+            android:name=".CreateAccount"
+            android:exported="false"
+            android:label="Create Account" />
+        <activity
+            android:name=".Login"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

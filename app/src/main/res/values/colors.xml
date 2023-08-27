@@ -5,4 +5,14 @@
     <color name="btncolor">#FF9800</color>
     <color name="boardercolor">#E10E0E</color>
 
+
+    <color name="red">#FF0000</color>
+    <color name="blue">#0000FF</color>
+    <color name="purple">#800080</color>
+    <color name="yellow">#FFFF00</color>
+    <color name="magenta">#FF00FF</color>
+    <color name="pink">#FFc0cb</color>
+    <color name="orange">#ffa500</color>
+    <color name="brown">#a52a2a</color>
+    <color name="green">#008000</color>
 </resources>
