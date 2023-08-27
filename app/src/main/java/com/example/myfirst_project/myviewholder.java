@@ -1,9 +1,11 @@
 package com.example.myfirst_project;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 import android.net.Uri;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +36,11 @@ import org.w3c.dom.Text;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.upstream.BandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 //import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 
 
@@ -43,6 +50,9 @@ public class myviewholder extends RecyclerView.ViewHolder {
     StyledPlayerView styledPlayerView;
     SimpleExoPlayer player;
     TextView vtitleview;
+    ImageView like_btn;
+    TextView like_text;
+    DatabaseReference likereference;
     SimpleExoPlayer simpleExoPlayer;
     //SimpleExoPlayerView simpleExoPlayerView;
 
@@ -51,12 +61,39 @@ public class myviewholder extends RecyclerView.ViewHolder {
 
         vtitleview=itemView.findViewById(R.id.vtitle);
         styledPlayerView=itemView.findViewById(R.id.exoplayerview);
+        like_btn=(ImageView)itemView.findViewById(R.id.like_btn);
+        like_text=(TextView)itemView.findViewById(R.id.like_text);
         player = new SimpleExoPlayer.Builder(itemView.getContext()).build();
         styledPlayerView.setPlayer(player);
 
         // Enable player controls
         styledPlayerView.setUseController(true);
 
+    }
+      @SuppressLint("SuspiciousIndentation")
+    public  void getlikebuttonstatus(final String postkey, final String userid){
+                likereference= FirebaseDatabase.getInstance().getReference("likes");
+                    likereference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if(snapshot.child(postkey).hasChild(userid)){
+                                int likecount=(int)snapshot.child(postkey).getChildrenCount();
+                                like_text.setText(likecount+"likes");
+                                like_btn.setImageResource(R.drawable.baseline_favorite_24);
+
+                            }
+                            else{
+                                int likecount=(int)snapshot.child(postkey).getChildrenCount();
+                                like_text.setText(likecount+"likes");
+                                like_btn.setImageResource(R.drawable.baseline_favorite_border_24);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
     }
 
     void prepareexoplayer(Application application, String videotitle, String videourl){

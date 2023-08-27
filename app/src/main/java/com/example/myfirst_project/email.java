@@ -27,6 +27,7 @@ public class email extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_email);
+        //setTitle("the si tileeljldsgds");
         t1=(TextInputLayout)findViewById(R.id.email_login);
         t2=(TextInputLayout)findViewById(R.id.pwd_login);
         bar=(ProgressBar)findViewById(R.id.progressBar2);
@@ -54,6 +55,7 @@ public class email extends AppCompatActivity {
                             bar.setVisibility(View.INVISIBLE);
                             Intent intent =new Intent(email.this,dashboard.class);
                            startActivity(intent);
+                           finish();
                         }
                         else{
                             bar.setVisibility(View.INVISIBLE);
