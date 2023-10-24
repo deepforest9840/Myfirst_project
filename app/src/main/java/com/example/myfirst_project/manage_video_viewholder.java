@@ -102,7 +102,7 @@ public class manage_video_viewholder   extends RecyclerView.ViewHolder {
         try {
             Uri videoURI = Uri.parse(videourl);
 
-            delete.setOnClickListener(new View.OnClickListener() {
+            delete.setOnClickListener(new View.OnClickListener() { //////
                 @Override
                 public void onClick(View view) {
                     // Create an AlertDialog
