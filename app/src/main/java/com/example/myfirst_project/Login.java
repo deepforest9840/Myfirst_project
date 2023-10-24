@@ -42,7 +42,10 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         em = findViewById(R.id.email);
+        em.setText("sakib.cse.du@gmail.com");
+
         password = findViewById(R.id.editTextTextPassword);
+        password.setText("12345678");
         fAuth=FirebaseAuth.getInstance();
         create = findViewById(R.id.create_ac);
         sub = findViewById(R.id.submit);

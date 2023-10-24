@@ -50,24 +50,30 @@ public class myviewholder extends RecyclerView.ViewHolder {
     StyledPlayerView styledPlayerView;
     SimpleExoPlayer player;
     TextView vtitleview;
+
     ImageView like_btn;
+    ImageView u_img;
+    TextView u_nam;
     TextView like_text;
+    ImageView comment_btn;
     DatabaseReference likereference;
     SimpleExoPlayer simpleExoPlayer;
     //SimpleExoPlayerView simpleExoPlayerView;
 
     public myviewholder(@NonNull View itemView) {
         super(itemView);
-
+        u_img=itemView.findViewById(R.id.u_img);
+        u_nam=itemView.findViewById(R.id.u_nam);
         vtitleview=itemView.findViewById(R.id.vtitle);
         styledPlayerView=itemView.findViewById(R.id.exoplayerview);
         like_btn=(ImageView)itemView.findViewById(R.id.like_btn);
         like_text=(TextView)itemView.findViewById(R.id.like_text);
         player = new SimpleExoPlayer.Builder(itemView.getContext()).build();
         styledPlayerView.setPlayer(player);
-
+        comment_btn=(ImageView)itemView.findViewById(R.id.comment_btn);
         // Enable player controls
         styledPlayerView.setUseController(true);
+
 
     }
       @SuppressLint("SuspiciousIndentation")
@@ -96,7 +102,7 @@ public class myviewholder extends RecyclerView.ViewHolder {
                     });
     }
 
-    void prepareexoplayer(Application application, String videotitle, String videourl){
+    void prepareexoplayer(Application application,String u_img1,String u_nam1, String videotitle, String videourl){
 
 
         try{
@@ -124,6 +130,8 @@ public class myviewholder extends RecyclerView.ViewHolder {
 //
 //           // Log.d("explayer is unfortunately crashed");
             vtitleview.setText(videotitle);
+            u_nam.setText(u_nam1);
+
             Uri videoURI = Uri.parse(videourl);
             DefaultDataSourceFactory dataSourceFactory = new DefaultDataSourceFactory(
                     application,

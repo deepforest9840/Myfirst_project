@@ -23,8 +23,13 @@ import android.widget.VideoView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -41,7 +46,7 @@ import com.karumi.dexter.listener.single.PermissionListener;
 import java.util.List;
 
 public class addvideo extends AppCompatActivity {
-
+String gimg="null",gname="first";
     boolean rec_load_button=true;
     VideoView videoView;
     Button browse,upload;
@@ -181,6 +186,41 @@ public class addvideo extends AppCompatActivity {
         final ProgressDialog pd=new ProgressDialog(this);
         pd.setTitle("media uploader");
         pd.show();
+
+
+
+
+        FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
+        final String userId2=user.getUid();
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("userprofile");
+
+        userRef.child(userId2).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    String uname = dataSnapshot.child("uname").getValue(String.class);
+                    String uimage = dataSnapshot.child("uimage").getValue(String.class);
+                    gimg=uimage;
+                    gname=uname;
+                   // Toast.makeText(getApplicationContext(),uname,Toast.LENGTH_LONG).show();
+
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Handle any errors here
+            }
+        });
+
+
+
+
+
+
+
+
         StorageReference uploader=storageReference.child(("myvideos/"+System.currentTimeMillis()+"."+getExtension()));
         uploader.putFile(videouri)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -189,7 +229,11 @@ public class addvideo extends AppCompatActivity {
                         uploader.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
-                                filemodel obj=new filemodel(vtitle.getText().toString(),uri.toString());
+
+                                FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
+                                final String userId22=user.getUid();
+
+                                filemodel2 obj=new filemodel2(vtitle.getText().toString(),gimg,gname,userId22,uri.toString());
                                 databaseReference.child(databaseReference.push().getKey()).setValue(obj)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
