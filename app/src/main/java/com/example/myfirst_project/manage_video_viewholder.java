@@ -75,6 +75,7 @@ public class manage_video_viewholder   extends RecyclerView.ViewHolder {
     }
     public  void getlikebuttonstatus2(final String postkey, final String userid){
         likereference= FirebaseDatabase.getInstance().getReference("likes");
+       // DatabaseReference chatref=FirebaseDatabase.getInstance().getReference("userprofile");
         likereference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
