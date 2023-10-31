@@ -5,7 +5,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaRecorder;
 import android.net.Uri;
@@ -48,6 +50,7 @@ import java.util.List;
 public class addvideo extends AppCompatActivity {
 String gimg="null",gname="first";
     boolean rec_load_button=true;
+    int ok=0;
     VideoView videoView;
     Button browse,upload;
     EditText vtitle;
@@ -75,7 +78,7 @@ String gimg="null",gname="first";
 
         videoView=(VideoView)findViewById(R.id.videoView);
         upload=(Button) findViewById(R.id.upload_addvideo);
-        browse=(Button) findViewById(R.id.browse_addvideo);
+        //browse=(Button) findViewById(R.id.browse_addvideo);
         mediaController=new MediaController(this);
         videoView.setMediaController(mediaController);
         videoView.start();
@@ -84,65 +87,223 @@ String gimg="null",gname="first";
         rec_load.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(addvideo.this);
+                builder.setTitle("Select an option");
+                final String[] items = {"From phone", "From camera"};
 
-                Dexter.withContext(getApplicationContext())
-                        .withPermissions(
-                                Manifest.permission.CAMERA,
-                                Manifest.permission.RECORD_AUDIO,
-                                Manifest.permission.WRITE_EXTERNAL_STORAGE
-                        )
-                        .withListener(new MultiplePermissionsListener() {
-                            @Override
-                            public void onPermissionsChecked(MultiplePermissionsReport report) {
-                                rec_load_button=true;
-                                // Handle permissions results here
-                                dispatchTakeVideoIntent();
-                            }
+                final int[] selectedItem = {-1}; // To keep track of the selected item
 
-                            @Override
-                            public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
-                                // Handle permission rationale here and continue with permission request
-                                token.continuePermissionRequest();
-                            }
-                        }).check();
+                builder.setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Handle the selection here
+                        selectedItem[0] = which; // Store the selected item index
+                    }
+                });
+
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (selectedItem[0] == 0) {
+                            Dexter.withContext(getApplicationContext())
+                                    .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                                    .withListener(new PermissionListener() {
+                                        @Override
+                                        public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
+                                            Intent intent=new Intent();
+                                            ok=5;
+                                            upload.setEnabled(true);
+                                            intent.setType("video/*");
+                                            intent.setAction(Intent.ACTION_GET_CONTENT);
+                                            startActivityForResult(intent,101);
+
+                                        }
+
+                                        @Override
+                                        public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
+
+                                        }
+
+                                        @Override
+                                        public void onPermissionRationaleShouldBeShown(PermissionRequest permissionRequest, PermissionToken permissionToken) {
+                                            permissionToken.continuePermissionRequest();
+                                        }
+                                    }).check();
+                        } else if (selectedItem[0] == 1) {
+                            // "From camera" selected, open CameraActivity
+                            Dexter.withContext(getApplicationContext())
+                                    .withPermissions(
+                                            Manifest.permission.CAMERA,
+                                            Manifest.permission.RECORD_AUDIO,
+                                            Manifest.permission.WRITE_EXTERNAL_STORAGE
+                                    )
+                                    .withListener(new MultiplePermissionsListener() {
+                                        @Override
+                                        public void onPermissionsChecked(MultiplePermissionsReport report) {
+                                            rec_load_button=true;
+                                            ok=5;
+                                            upload.setEnabled(true);
+                                            // Handle permissions results here
+                                            dispatchTakeVideoIntent();
+                                        }
+
+                                        @Override
+                                        public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+                                            // Handle permission rationale here and continue with permission request
+                                            token.continuePermissionRequest();
+                                        }
+                                    }).check();
+                        }
+                        dialog.dismiss();
+                    }
+                });
+
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss(); // Close the dialog on Cancel
+                    }
+                });
+
+// Set the icon using the resource ID of the image
+                builder.setIcon(R.drawable.video);
+
+// Show the AlertDialog
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
+//                AlertDialog.Builder builder = new AlertDialog.Builder(addvideo.this);
+//                builder.setTitle("Choose video");
+//                builder.setIcon(R.drawable.video);
+//                final String[] items = {"From phone", "From camera"};
+//
+//                builder.setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        // Handle the selection here
+//                        if (which == 0) {
+//                            // "From phone" selected, open PhoneActivity
+//                            Dexter.withContext(getApplicationContext())
+//                                    .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+//                                    .withListener(new PermissionListener() {
+//                                        @Override
+//                                        public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
+//                                            Intent intent=new Intent();
+//                                            intent.setType("video/*");
+//                                            intent.setAction(Intent.ACTION_GET_CONTENT);
+//                                            startActivityForResult(intent,101);
+//
+//                                        }
+//
+//                                        @Override
+//                                        public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
+//
+//                                        }
+//
+//                                        @Override
+//                                        public void onPermissionRationaleShouldBeShown(PermissionRequest permissionRequest, PermissionToken permissionToken) {
+//                                            permissionToken.continuePermissionRequest();
+//                                        }
+//                                    }).check();
+//                        } else if (which == 1) {
+//                            // "From camera" selected, open CameraActivity
+//                            Dexter.withContext(getApplicationContext())
+//                                    .withPermissions(
+//                                            Manifest.permission.CAMERA,
+//                                            Manifest.permission.RECORD_AUDIO,
+//                                            Manifest.permission.WRITE_EXTERNAL_STORAGE
+//                                    )
+//                                    .withListener(new MultiplePermissionsListener() {
+//                                        @Override
+//                                        public void onPermissionsChecked(MultiplePermissionsReport report) {
+//                                            rec_load_button=true;
+//                                            // Handle permissions results here
+//                                            dispatchTakeVideoIntent();
+//                                        }
+//
+//                                        @Override
+//                                        public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+//                                            // Handle permission rationale here and continue with permission request
+//                                            token.continuePermissionRequest();
+//                                        }
+//                                    }).check();
+//                        }
+//                        dialog.dismiss(); // Close the dialog
+//                    }
+//                });
+//
+//                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        dialog.dismiss(); // Close the dialog on Cancel
+//                    }
+//                });
+//
+//// Show the AlertDialog
+//                AlertDialog dialog = builder.create();
+//                dialog.show();
+
+//                Dexter.withContext(getApplicationContext())
+//                        .withPermissions(
+//                                Manifest.permission.CAMERA,
+//                                Manifest.permission.RECORD_AUDIO,
+//                                Manifest.permission.WRITE_EXTERNAL_STORAGE
+//                        )
+//                        .withListener(new MultiplePermissionsListener() {
+//                            @Override
+//                            public void onPermissionsChecked(MultiplePermissionsReport report) {
+//                                rec_load_button=true;
+//                                // Handle permissions results here
+//                                dispatchTakeVideoIntent();
+//                            }
+//
+//                            @Override
+//                            public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+//                                // Handle permission rationale here and continue with permission request
+//                                token.continuePermissionRequest();
+//                            }
+//                        }).check();
 
             }
         });
-        browse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Dexter.withContext(getApplicationContext())
-                        .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-                        .withListener(new PermissionListener() {
-                            @Override
-                            public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
-                                Intent intent=new Intent();
-                                intent.setType("video/*");
-                                intent.setAction(Intent.ACTION_GET_CONTENT);
-                                startActivityForResult(intent,101);
-
-                            }
-
-                            @Override
-                            public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
-
-                            }
-
-                            @Override
-                            public void onPermissionRationaleShouldBeShown(PermissionRequest permissionRequest, PermissionToken permissionToken) {
-                                permissionToken.continuePermissionRequest();
-                            }
-                        }).check();
-
-
-            }
-        });
+//        browse.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                Dexter.withContext(getApplicationContext())
+//                        .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+//                        .withListener(new PermissionListener() {
+//                            @Override
+//                            public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
+//                                Intent intent=new Intent();
+//                                intent.setType("video/*");
+//                                intent.setAction(Intent.ACTION_GET_CONTENT);
+//                                startActivityForResult(intent,101);
+//
+//                            }
+//
+//                            @Override
+//                            public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
+//
+//                            }
+//
+//                            @Override
+//                            public void onPermissionRationaleShouldBeShown(PermissionRequest permissionRequest, PermissionToken permissionToken) {
+//                                permissionToken.continuePermissionRequest();
+//                            }
+//                        }).check();
+//
+//
+//            }
+//        });
 
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                processvideopuloading();
+
+                    processvideopuloading();
+
+
             }
         });
 

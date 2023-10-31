@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,30 +36,49 @@ public class commentviewholder extends RecyclerView.ViewHolder {
 
 
 
-
-    public  void commentdeleteprocess(final String cpostkey,final String postkey){
-
+    public void commentdeleteprocess(final String cpostkey, final String postkey) {
         deleteco.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
-                DatabaseReference commentref=FirebaseDatabase.getInstance().getReference().child("myvideos").child(postkey).child("comments");
-                DatabaseReference dbr=commentref.child(cpostkey);
-                Toast.makeText(itemView.getContext(),"successful to delete that comment",Toast.LENGTH_SHORT).show();
-                Task<Void> mTask=dbr.removeValue();
-                mTask.addOnSuccessListener(new OnSuccessListener<Void>() {
+                DatabaseReference commentRef = FirebaseDatabase.getInstance().getReference().child("myvideos").child(postkey).child("comments");
+                DatabaseReference dbr = commentRef.child(cpostkey);
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                final String userId = user.getUid();
+                //Toast.makeText(itemView.getContext(),"succese",Toast.LENGTH_SHORT).show();
+
+                // Retrieve the 'userid' under the comment post key
+                DatabaseReference userIdRef = dbr.child("uid");
+                userIdRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
-                    public void onSuccess(Void unused) {
-                        Toast.makeText(itemView.getContext(),"success to delete",Toast.LENGTH_SHORT);
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            String commentUserId = dataSnapshot.getValue(String.class);
+
+                            // Check if the comment's 'userid' matches the current user's 'userId'
+                            if (commentUserId != null && commentUserId.equals(userId)) {
+                                // If they match, it's the user's own comment, so you can delete it
+                                Task<Void> mTask = dbr.removeValue();
+                                mTask.addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Toast.makeText(itemView.getContext(), "Successfully deleted the comment", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            } else {
+                                // The comment does not belong to the current user
+                                Toast.makeText(itemView.getContext(), "You can only delete your own comments", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        // Handle any errors here
                     }
                 });
-
             }
         });
-
-
-
-
-
     }
 
 

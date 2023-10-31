@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue">
+    android:background="@drawable/img_12">
 
     <EditText
         android:id="@+id/emailEditText"
@@ -52,9 +52,8 @@
         android:id="@+id/submitPasswordChangeButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Submit"
         android:layout_below="@+id/confirmPasswordEditText"
-        android:layout_marginTop="16dp"
-        android:layout_centerHorizontal="true"/>
+        android:layout_marginTop="140dp"
+        android:text="Submit" />
 
 </RelativeLayout>

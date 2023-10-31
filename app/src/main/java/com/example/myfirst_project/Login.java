@@ -50,7 +50,7 @@ public class Login extends AppCompatActivity {
         create = findViewById(R.id.create_ac);
         sub = findViewById(R.id.submit);
         form = findViewById(R.id.forgot);
-        changepass=findViewById(R.id.changepass);
+//        changepass=findViewById(R.id.changepass);
 
 
         create.setOnClickListener(new View.OnClickListener() {
@@ -60,12 +60,12 @@ public class Login extends AppCompatActivity {
             }
         });
 
-        changepass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Login.this, Reset.class));
-            }
-        });
+//        changepass.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                startActivity(new Intent(Login.this, Reset.class));
+//            }
+//        });
 
 
 

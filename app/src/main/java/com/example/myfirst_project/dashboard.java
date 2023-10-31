@@ -46,7 +46,7 @@ DatabaseReference likereference;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-        setTitle("videostreaming");
+       // setTitle("");
         likereference=FirebaseDatabase.getInstance().getReference("likes");
         dbreference= FirebaseDatabase.getInstance().getReference().child("userprofile");
         addvideo=(FloatingActionButton) findViewById(R.id.addvideo);

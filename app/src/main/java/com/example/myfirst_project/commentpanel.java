@@ -27,10 +27,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class commentpanel extends AppCompatActivity {
     EditText commenttext;
@@ -75,18 +79,21 @@ public class commentpanel extends AppCompatActivity {
             private void processcomment(String username,String uimage){
                 String commentpost=commenttext.getText().toString();
                 String randompostkey=userId+""+new Random().nextInt(1000);
-                Calendar datevalue=Calendar.getInstance();
-                SimpleDateFormat dateFormat=new SimpleDateFormat("dd-mm-yy");
-                String cdate=dateFormat.format(datevalue.getTime());
-                SimpleDateFormat timeformat=new SimpleDateFormat("HH:mm");
-                String ctime=timeformat.format(datevalue.getTime());
-                HashMap cmnt=new HashMap();
-                cmnt.put("uid",userId);
-                cmnt.put("username",username);
-                cmnt.put("userimage",uimage);
-                cmnt.put("usermsg",commentpost);
-                cmnt.put("date",cdate);
-                cmnt.put("time",ctime);
+                Calendar datevalue = Calendar.getInstance();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yy");
+                String cdate = dateFormat.format(datevalue.getTime());
+                SimpleDateFormat timeformat = new SimpleDateFormat("HH:mm:ss");
+
+                String ctime = timeformat.format(datevalue.getTime());
+
+                HashMap<String, Object> cmnt = new HashMap<>();
+                cmnt.put("uid", userId);
+                cmnt.put("username", username);
+                cmnt.put("userimage", uimage);
+                cmnt.put("usermsg", commentpost);
+                cmnt.put("date", cdate);
+                cmnt.put("time", ctime);
+
                 commentref.child(randompostkey).updateChildren(cmnt)
                         .addOnCompleteListener(new OnCompleteListener() {
                             @Override
@@ -120,7 +127,59 @@ public class commentpanel extends AppCompatActivity {
             protected void onBindViewHolder(@NonNull commentviewholder holder, int position, @NonNull commentmodel model) {
                 holder.cuname.setText(model.getUsername());
                 holder.cumessage.setText(model.getUsermsg());
-                holder.cudt.setText("Date :"+model.getDate()+" Time :"+model.getTime());
+               // holder.cudt.setText("Date :"+model.getDate()+" Time :"+model.getTime());
+                // Assuming model.getDate() and model.getTime() are in "dd-MM-yy" and "HH:mm" format
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yy", Locale.getDefault());
+                SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
+
+                String modelDate = model.getDate();
+                String modelTime = model.getTime();
+
+                try {
+                    Date commentDateTime = dateFormat.parse(modelDate);
+                    Date currentTime = new Date();
+                    String[] timeParts = modelTime.split(":");
+                    if (timeParts.length == 3) {
+                        int hours = Integer.parseInt(timeParts[0]);
+                        int minutes = Integer.parseInt(timeParts[1]);
+                        int seconds = Integer.parseInt(timeParts[2]);
+
+                        commentDateTime.setHours(hours);
+                        commentDateTime.setMinutes(minutes);
+                        commentDateTime.setSeconds(seconds);
+
+                        long timeDifference = currentTime.getTime() - commentDateTime.getTime();
+                        long seconds2 = TimeUnit.MILLISECONDS.toSeconds(timeDifference);
+                        long minutes2 = TimeUnit.MILLISECONDS.toMinutes(timeDifference);
+                        long hours2 = TimeUnit.MILLISECONDS.toHours(timeDifference);
+                        long days = TimeUnit.MILLISECONDS.toDays(timeDifference);
+
+                        if (days > 0) {
+                            holder.cudt.setText(days + " days ago");
+                        } else if (hours2 > 0) {
+                            holder.cudt.setText(hours2 + " hours ago");
+                        } else if (minutes2 > 0) {
+                            holder.cudt.setText(minutes2 + " minutes ago");
+                        } else {
+                            if(seconds2==0){
+                                holder.cudt.setText( " now");
+                            }
+                            else {
+                                holder.cudt.setText(seconds2 + " seconds ago");
+                            }
+
+                        }
+                    } else {
+                        // Handle invalid time format
+                        holder.cudt.setText("Invalid time format");
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                    // Handle any parsing errors
+                }
+
+
+
                 Glide.with(holder.cuimage.getContext()).load(model.getUserimage()).into(holder.cuimage);
                 String cpostkey = getRef(position).getKey();
 
