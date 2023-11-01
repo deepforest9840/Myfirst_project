@@ -123,7 +123,7 @@ public class update_profile extends AppCompatActivity {
                                                      Toast.makeText(getApplicationContext(), "Account is deleted successfully", Toast.LENGTH_SHORT).show();
                                                      FirebaseAuth.getInstance().signOut();
                                                      startActivity(new Intent(update_profile.this, Login.class));
-                                                     finish();
+
                                                  }
                                              });
                                          } else {
