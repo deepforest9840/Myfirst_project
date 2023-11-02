@@ -26,4 +26,7 @@
         <item name="windowMinWidthMajor">80%</item>
         <item name="windowActionBar">false</item>
     </style>
+    <style name="SCREEN">
+        <item name="android:background">@drawable/img_18</item>
+    </style>
 </resources>

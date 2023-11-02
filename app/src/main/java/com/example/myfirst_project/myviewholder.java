@@ -52,6 +52,7 @@ public class myviewholder extends RecyclerView.ViewHolder {
     TextView vtitleview;
 
     ImageView like_btn;
+    ImageView download;
     ImageView u_img;
     TextView u_nam;
     TextView like_text;
@@ -68,6 +69,7 @@ public class myviewholder extends RecyclerView.ViewHolder {
         styledPlayerView=itemView.findViewById(R.id.exoplayerview);
         like_btn=(ImageView)itemView.findViewById(R.id.like_btn);
         like_text=(TextView)itemView.findViewById(R.id.like_text);
+        download= (ImageView)itemView.findViewById(R.id.download);
         player = new SimpleExoPlayer.Builder(itemView.getContext()).build();
         styledPlayerView.setPlayer(player);
         comment_btn=(ImageView)itemView.findViewById(R.id.comment_btn);

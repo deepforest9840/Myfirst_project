@@ -87,6 +87,13 @@
                     android:layout_marginRight="180dp"
                     android:src="@drawable/comment_image" />
 
+                <ImageView
+                    android:id="@+id/download"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/baseline_download_24" />
+
             </LinearLayout>
 
         </LinearLayout>

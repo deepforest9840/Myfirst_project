@@ -1,7 +1,9 @@
 package com.example.myfirst_project;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -9,12 +11,14 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -35,11 +39,46 @@ public class Login extends AppCompatActivity {
     Button sub,changepass;
     FirebaseAuth fAuth;
     boolean passwordVisible;
+    Switch switcher;
+    boolean nightmode;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+       // getSupportActionBar().hide();
+        switcher=findViewById(R.id.switch1);
+        sharedPreferences=getSharedPreferences("MODE", Context.MODE_PRIVATE);
+        nightmode=sharedPreferences.getBoolean("night",false);
+        if(nightmode){
+            switcher.setChecked(true);
+        }
+        switcher.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(nightmode){
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    editor=sharedPreferences.edit();
+                    editor.putBoolean("night",false);
+                }else {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    editor=sharedPreferences.edit();
+                    editor.putBoolean("night",true);
+                }
+                editor.apply();
+            }
+        });
+
+
+
+
+
+
+
+
+
 
         em = findViewById(R.id.email);
         em.setText("sakib.cse.du@gmail.com");

@@ -1,10 +1,14 @@
     package com.example.myfirst_project;
 
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.DownloadManager;
+import android.net.Uri;
+import android.os.Environment;
 import android.util.Log;
 import android.view.MenuItem;
 
@@ -137,6 +141,41 @@ DatabaseReference likereference;
                                     startActivity(intent);
                                 }
                             });
+                            holder.download.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    String videoTitle = model.getTitle();
+
+                                    // Define the download URL (videourl)
+                                   String videoUrl=model.getVurl();
+
+
+                                    // Create a request for the download manager
+                                    DownloadManager.Request request = new DownloadManager.Request(Uri.parse(videoUrl));
+
+                                    // Set the title of the download
+                                    request.setTitle(videoTitle);
+
+                                    // Set the description (optional)
+                                    request.setDescription("Downloading video...");
+
+                                    // Set the destination path for the downloaded video
+                                    request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, videoTitle + ".mp4");
+
+                                    // Get the download service and enqueue the download request
+                                    DownloadManager downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+                                    long downloadId = downloadManager.enqueue(request);
+
+                                    // Optionally, you can register a BroadcastReceiver to monitor the download progress and status
+                                    // Implement a BroadcastReceiver to handle download completion, progress, etc.
+
+                                    // You can provide a notification to the user indicating the download progress
+                                    // Notify the user that the download has started
+
+                                    Toast.makeText(getApplicationContext(), "Download started", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
                         }
 
                         @NonNull

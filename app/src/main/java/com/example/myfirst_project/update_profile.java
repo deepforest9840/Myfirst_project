@@ -64,8 +64,8 @@ public class update_profile extends AppCompatActivity {
     String Userid="";
     DatabaseReference dbreference;
     StorageReference storageReference;
- @SuppressLint("MissingInflatedId")
- @Override
+    @SuppressLint("MissingInflatedId")
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_profile);
@@ -73,88 +73,86 @@ public class update_profile extends AppCompatActivity {
         uname=(EditText) findViewById(R.id.uname);
         btnupdate=(Button) findViewById(R.id.btnupdate);
         delete=(ImageView)findViewById(R.id.deletecom4);
-     floating = (FloatingActionButton) findViewById(R.id.floatinggg);
-     if(nam!="f"){if(
-             uname.getText().toString()!=nam){
-         btnupdate.setEnabled(true);
-     }}
-     FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
-     Userid=user.getUid();
-     dbreference= FirebaseDatabase.getInstance().getReference().child("userprofile");
-     storageReference= FirebaseStorage.getInstance().getReference();
+        floating = (FloatingActionButton) findViewById(R.id.floatinggg);
+        if(nam!="f"){if(
+                uname.getText().toString()!=nam){
+            btnupdate.setEnabled(true);
+        }}
+        FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
+        Userid=user.getUid();
+        dbreference= FirebaseDatabase.getInstance().getReference().child("userprofile");
+        storageReference= FirebaseStorage.getInstance().getReference();
 
-     floating.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View view) {
-             // Open the camera to capture an image
-             Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-             if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-                 btnupdate.setEnabled(true);
-                 startActivityForResult(takePictureIntent, 102); // 101 is a request code
-             }
-         }
-     });
+        floating.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Open the camera to capture an image
+                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+                    btnupdate.setEnabled(true);
+                    startActivityForResult(takePictureIntent, 102); // 101 is a request code
+                }
+            }
+        });
 
-     delete.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View view) {
-             // Create an AlertDialog
-             AlertDialog.Builder builder = new AlertDialog.Builder(update_profile.this);
-             builder.setTitle("Confirm Deletion");
-             builder.setMessage("Are you sure you want to delete this account?");
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Create an AlertDialog
+                AlertDialog.Builder builder = new AlertDialog.Builder(update_profile.this);
+                builder.setTitle("Confirm Deletion");
+                builder.setMessage("Are you sure you want to delete this account?");
 
-             builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                 @Override
-                 public void onClick(DialogInterface dialog, int which) {
-                     // Delete Firebase user account
-                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                     if (user != null) {
-                         user.delete()
-                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                     @Override
-                                     public void onComplete(@NonNull Task<Void> task) {
-                                         if (task.isSuccessful()) {
-                                             // User account deleted, now delete from the userprofile
-                                             DatabaseReference dbr = FirebaseDatabase.getInstance().getReference("userprofile").child(Userid);
-                                             Task<Void> mTask = dbr.removeValue();
-                                             mTask.addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                 @Override
-                                                 public void onSuccess(Void unused) {
-                                                     Toast.makeText(getApplicationContext(), "Account is deleted successfully", Toast.LENGTH_SHORT).show();
-                                                     FirebaseAuth.getInstance().signOut();
-                                                     startActivity(new Intent(update_profile.this, Login.class));
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Delete Firebase user account
+                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                        if (user != null) {
+                            user.delete()
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                // User account deleted, now delete from the userprofile
+                                                DatabaseReference dbr = FirebaseDatabase.getInstance().getReference("userprofile").child(Userid);
+                                                Task<Void> mTask = dbr.removeValue();
+                                                mTask.addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void unused) {
+                                                        Toast.makeText(getApplicationContext(), "Account is deleted successfully", Toast.LENGTH_SHORT).show();
+                                                        FirebaseAuth.getInstance().signOut();
+                                                        startActivity(new Intent(update_profile.this, Login.class));
 
-                                                 }
-                                             });
-                                         } else {
-                                             Toast.makeText(getApplicationContext(), "Failed to delete account", Toast.LENGTH_SHORT).show();
-                                         }
-                                     }
-                                 });
-                     }
-                 }
-             });
+                                                    }
+                                                });
+                                            } else {
+                                                Toast.makeText(getApplicationContext(), "Failed to delete account", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
+                        }
+                    }
+                });
 
-             builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                 @Override
-                 public void onClick(DialogInterface dialog, int which) {
-                     Toast.makeText(getApplicationContext(), "Account is not deleted", Toast.LENGTH_SHORT).show();
-                 }
-             });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getApplicationContext(), "Account is not deleted", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
-             // Show the AlertDialog
-             AlertDialog dialog = builder.create();
-             dialog.show();
-         }
-     });
-
-
-     if(nam!="f"){if(
-             uname.getText().toString()!=nam){
-         btnupdate.setEnabled(true);
-     }}
+                // Show the AlertDialog
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
 
 
+        if(nam!="f"){if(
+                uname.getText().toString()!=nam){
+            btnupdate.setEnabled(true);
+        }}
 
 
 
@@ -166,47 +164,49 @@ public class update_profile extends AppCompatActivity {
 
 
 
-     uimage.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View view) {
-             Dexter.withContext(getApplicationContext())
-                     .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
 
-                     .withListener(new PermissionListener() {
-                         @Override
-                         public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
+
+        uimage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Dexter.withContext(getApplicationContext())
+                        .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+
+                        .withListener(new PermissionListener() {
+                            @Override
+                            public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
                                 Intent intent=new Intent();
                                 intent.setType("image/*");
-                             btnupdate.setEnabled(true);
+                                btnupdate.setEnabled(true);
                                 intent.setAction(Intent.ACTION_GET_CONTENT);
                                 startActivityForResult(Intent.createChooser(intent,"please select file for update ur profile"),101);
 
-                         }
+                            }
 
-                         @Override
-                         public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
+                            @Override
+                            public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
 
-                         }
+                            }
 
-                         @Override
-                         public void onPermissionRationaleShouldBeShown(PermissionRequest permissionRequest, PermissionToken permissionToken) {
-                             permissionToken.continuePermissionRequest();
-                         }
-                     }).check();
-         }
-     });
-
-
+                            @Override
+                            public void onPermissionRationaleShouldBeShown(PermissionRequest permissionRequest, PermissionToken permissionToken) {
+                                permissionToken.continuePermissionRequest();
+                            }
+                        }).check();
+            }
+        });
 
 
 
 
-     btnupdate.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View view) {
-             updatetofirebase();
-         }
-     });
+
+
+        btnupdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updatetofirebase();
+            }
+        });
 
     }
 
@@ -224,7 +224,7 @@ public class update_profile extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),ex.getMessage(),Toast.LENGTH_LONG).show();
             }
         }
-       else if (requestCode == 102 && resultCode == Activity.RESULT_OK) {
+        else if (requestCode == 102 && resultCode == Activity.RESULT_OK) {
             Bundle extras = data.getExtras();
             bitmap = (Bitmap) extras.get("data");
             uimage.setImageBitmap(bitmap); // Display the captured image
@@ -331,34 +331,34 @@ public class update_profile extends AppCompatActivity {
 
     protected  void onStart(){
 
-     super.onStart();
-     FirebaseUser user=FirebaseAuth.getInstance().getCurrentUser();
-     Userid=user.getUid();
-     dbreference.child(Userid).addValueEventListener(new ValueEventListener() {
-         @Override
-         public void onDataChange(@NonNull DataSnapshot snapshot) {
-             if(snapshot.exists()){
-                 uname.setText(snapshot.child("uname").getValue().toString());
-                 nam=snapshot.child("uname").getValue().toString();
-                 if(uname.getText().toString()==nam){
-                     btnupdate.setEnabled(false);
-                 }
-                 if(nam!="f"){
-                     if(uname.getText().toString()!=nam){
-                     btnupdate.setEnabled(true);
-                 }}
+        super.onStart();
+        FirebaseUser user=FirebaseAuth.getInstance().getCurrentUser();
+        Userid=user.getUid();
+        dbreference.child(Userid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    uname.setText(snapshot.child("uname").getValue().toString());
+                    nam=snapshot.child("uname").getValue().toString();
+                    if(uname.getText().toString()==nam){
+                        btnupdate.setEnabled(false);
+                    }
+                    if(nam!="f"){
+                        if(uname.getText().toString()!=nam){
+                            btnupdate.setEnabled(true);
+                        }}
 
 
 
-                 Glide.with(getApplicationContext()).load(snapshot.child("uimage").getValue().toString()).into(uimage);
-             }
-         }
+                    Glide.with(getApplicationContext()).load(snapshot.child("uimage").getValue().toString()).into(uimage);
+                }
+            }
 
-         @Override
-         public void onCancelled(@NonNull DatabaseError error) {
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-         }
-     });
+            }
+        });
 
 
     }

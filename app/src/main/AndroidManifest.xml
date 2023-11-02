@@ -23,8 +23,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Myfirst_project"
         tools:targetApi="31">
-
-
+        <activity
+            android:name=".moodcheck"
+            android:exported="false" />
         <activity
             android:name=".home_fragement2"
             android:exported="false" />

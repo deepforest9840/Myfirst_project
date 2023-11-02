@@ -46,7 +46,6 @@ public class CreateAccount extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        user_name = findViewById(R.id.User);
         user_mail = findViewById(R.id.sign_email);
         user_password = findViewById(R.id.first_password);
         confirm_password = findViewById(R.id.confirm_password);
@@ -111,7 +110,7 @@ public class CreateAccount extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String name = user_name.getText().toString();
+                String name = "amb";
                 String email = user_mail.getText().toString();
                 String password = user_password.getText().toString();
                 String confirmPassword = confirm_password.getText().toString();

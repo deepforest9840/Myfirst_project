@@ -8,7 +8,7 @@
     android:layout_alignParentEnd="false"
     android:layout_alignParentRight="false"
     android:layout_alignParentBottom="false"
-    android:background="@drawable/loginlayout"
+    style="@style/SCREEN"
     android:scrollbarThumbHorizontal="@android:drawable/ic_dialog_email"
     android:textAlignment="center"
     tools:context=".Login">
@@ -102,6 +102,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.84" />
+
+
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Switch"
+        tools:layout_editor_absoluteX="287dp"
+        tools:layout_editor_absoluteY="42dp"
+        tools:ignore="MissingConstraints" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
