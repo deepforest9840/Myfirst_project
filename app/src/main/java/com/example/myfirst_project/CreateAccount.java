@@ -142,7 +142,7 @@ public class CreateAccount extends AppCompatActivity {
                                         public void onComplete(@NonNull Task<AuthResult> task) {
                                             if (task.isSuccessful()) {
                                                 Toast.makeText(CreateAccount.this, "success", Toast.LENGTH_LONG).show();
-                                                startActivity(new Intent(CreateAccount.this, Login.class));
+                                                startActivity(new Intent(CreateAccount.this, userlist.class));
 
                                             } else {
                                                 Toast.makeText(CreateAccount.this, "something wrong" + task.getException().getMessage(), Toast.LENGTH_LONG).show();
