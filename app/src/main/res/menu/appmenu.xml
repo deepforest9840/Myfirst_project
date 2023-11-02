@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- <item android:id="@+id/home"
-      android:icon="@drawable/baseline_home_24"
-      android:title="homepage"
-  /> -->
         <item android:id="@+id/manage_profile"
             android:icon="@drawable/baseline_supervised_user_circle_24"
             android:title="Manage Profile"
             />
-    <item android:id="@+id/chat"
+
+    <item android:id="@+id/user"
         android:icon="@drawable/baseline_logout_24"
         android:title="Chat"
         />
+
     <item android:id="@+id/logout"
         android:icon="@drawable/baseline_logout_24"
         android:title="Logout"
         />
 
+    <item android:id="@+id/developer"
+        android:icon="@drawable/baseline_logout_24"
+        android:title="developer"
+        />
 
 </menu>

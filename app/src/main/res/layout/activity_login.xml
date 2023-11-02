@@ -8,7 +8,7 @@
     android:layout_alignParentEnd="false"
     android:layout_alignParentRight="false"
     android:layout_alignParentBottom="false"
-    style="@style/SCREEN"
+    android:background="@drawable/loginlayout"
     android:scrollbarThumbHorizontal="@android:drawable/ic_dialog_email"
     android:textAlignment="center"
     tools:context=".Login">
@@ -81,10 +81,9 @@
         android:textColorHint="#E8DFDF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.609"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/submit"
-        app:layout_constraintVertical_bias="0.754" />
+        app:layout_constraintVertical_bias="0.91" />
 
     <TextView
         android:id="@+id/forgot"
@@ -103,15 +102,23 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.84" />
 
-
-    <Switch
-        android:id="@+id/switch1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Switch"
-        tools:layout_editor_absoluteX="287dp"
-        tools:layout_editor_absoluteY="42dp"
-        tools:ignore="MissingConstraints" />
+    <Button
+        android:id="@+id/changepass"
+        android:layout_width="243dp"
+        android:layout_height="55dp"
+        android:background="#050D2CCA"
+        android:text="ChangePass"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#F4EFEF"
+        android:textColorHighlight="#EAE0E0"
+        android:textColorHint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.909" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

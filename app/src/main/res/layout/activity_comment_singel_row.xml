@@ -10,60 +10,59 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:padding="15dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/cuimage"
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:src="@mipmap/ic_launcher"
-            android:id="@+id/cuimage"
-            app:civ_border_width="2dp"
-            app:civ_border_color="#3F51B5" />
+            app:civ_border_color="#3F51B5"
+            app:civ_border_width="2dp" />
 
         <ImageView
+            android:id="@+id/deletecom"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:id="@+id/deletecom"
-            android:src="@drawable/delete33_foreground"
-            android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
             android:layout_marginTop="-12dp"
             android:layout_marginEnd="-12dp"
-            />
+            android:src="@drawable/delete33_foreground" />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/cuname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/cuimage"
             android:text="User Name"
-            android:textStyle="bold"
-            android:textSize="25sp"
             android:textColor="#00FF00"
-            android:layout_toRightOf="@+id/cuimage"
-            android:layout_marginLeft="10dp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/cumessage"
-            android:text="This is a message"
             android:textSize="25sp"
-            android:textColor="#FF0000"
-            android:layout_toRightOf="@+id/cuimage"
-            android:layout_below="@+id/cuname"
-            android:layout_marginLeft="10dp" />
+            android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/cumessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/cudt"
-            android:text="Date and Time"
-            android:textSize="15sp"
-            android:textColor="#00FFFF"
+            android:layout_below="@+id/cuname"
+            android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/cuimage"
+            android:text="This is a message"
+            android:textColor="#FF0000"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/cudt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/cumessage"
-            android:layout_marginLeft="10dp" />
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/cuimage"
+            android:text="Date and Time"
+            android:textColor="#00FFFF"
+            android:textSize="15sp" />
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

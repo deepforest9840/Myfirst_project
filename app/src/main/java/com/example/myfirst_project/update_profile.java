@@ -72,7 +72,7 @@ public class update_profile extends AppCompatActivity {
         uimage=(ImageView)findViewById(R.id.uimage);
         uname=(EditText) findViewById(R.id.uname);
         btnupdate=(Button) findViewById(R.id.btnupdate);
-        delete=(ImageView)findViewById(R.id.deletecom4);
+        //delete=(ImageView)findViewById(R.id.deletecom4);
         floating = (FloatingActionButton) findViewById(R.id.floatinggg);
         if(nam!="f"){if(
                 uname.getText().toString()!=nam){

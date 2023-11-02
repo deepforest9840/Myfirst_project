@@ -5,19 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".update_profile"
-    android:background="@drawable/img_13">
+    tools:context=".update_profile">
 
 
-    <ImageView
-        android:id="@+id/deletecom4"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="-12dp"
-        android:layout_marginEnd="-12dp"
-        android:src="@drawable/delete33_foreground" />
+
 
     <ImageView
         android:id="@+id/uimage"
@@ -60,8 +51,8 @@
         android:layout_gravity="center"
         android:textSize="25sp"
         android:layout_marginTop="20sp"
-        android:padding="12dp"
-        android:enabled="false"/>
+        android:padding="12dp"/>
+
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -213,12 +213,19 @@ DatabaseReference likereference;
                 finish();
                 return true;
             }
-            if(itemId==R.id.chat){
-                startActivity(new Intent(dashboard.this,chat_activity.class));
+            if(itemId==R.id.user){
+                startActivity(new Intent(dashboard.this,userlist.class));
             }
+
            if (itemId == R.id.manage_profile) {
 
                startActivity(new Intent(dashboard.this, manage_profile.class));
+
+           }
+
+           if (itemId == R.id.developer) {
+
+               startActivity(new Intent(dashboard.this,team.class));
 
            }
 

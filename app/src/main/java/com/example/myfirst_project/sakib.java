@@ -15,7 +15,7 @@ public class sakib extends AppCompatActivity {
 
 
     void sendEmail() {
-        String[] recipientEmails = {"ferdousmondol249@gmail.com"}; // Replace with the recipient's email address
+        String[] recipientEmails = {"sakib.cse.du@gmail.com"}; // Replace with the recipient's email address
         String subject = "subject"; // Set the email subject
         String message = "Your email message here"; // Set the email message
 

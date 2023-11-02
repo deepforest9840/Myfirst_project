@@ -12,6 +12,7 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
 
     <application
         android:allowBackup="true"
@@ -23,11 +24,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Myfirst_project"
         tools:targetApi="31">
+
+
         <activity
-            android:name=".moodcheck"
+            android:name=".ChatActivity"
+            android:exported="false">
+        </activity>
+
+        <activity
+            android:name=".Message"
             android:exported="false" />
         <activity
-            android:name=".home_fragement2"
+            android:name=".MessageAdapter"
+            android:exported="false" />
+
+        <activity
+            android:name=".userlist"
+            android:exported="false" />
+        <activity
+            android:name=".moodcheck"
             android:exported="false" />
         <activity
             android:name=".manage_video"
@@ -45,22 +60,12 @@
             android:name=".update_profile"
             android:exported="false" />
         <activity
-            android:name=".chat_activity"
-            android:exported="false"
-            android:theme="@style/AppTheme" />
-        <activity
             android:name=".addvideo"
             android:exported="false" />
         <activity
             android:name=".dashboard"
             android:exported="false"
             android:theme="@style/AppTheme" />
-        <activity
-            android:name=".email"
-            android:exported="false" />
-        <activity
-            android:name=".loginpage"
-            android:exported="false" />
         <activity
             android:name=".Reset"
             android:exported="false" />
@@ -77,9 +82,6 @@
             android:name=".team"
             android:exported="false" />
         <activity
-            android:name=".upload"
-            android:exported="false" />
-        <activity
             android:name=".CreateAccount"
             android:exported="false"
             android:label="Create Account" />
@@ -92,12 +94,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".secondActivity"
-            android:exported="true" />
-        <activity
-            android:name=".registration_activity"
-            android:exported="true" />
     </application>
 
 </manifest>
